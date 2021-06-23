@@ -1,26 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main>
+    <GradientGenerator>
+      <template v-slot:title>
+        <h2>Gradient Generator</h2>
+        <p>Generate a beautiful gradient for your next project.</p>
+      </template>
+    </GradientGenerator>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GradientGenerator from './components/GradientGenerator.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GradientGenerator
   }
 }
 </script>
 
 <style lang="scss">
+@import "./sass/_classes.scss";
+@import "./sass/_variables.scss";
+
+body {
+  margin: 0;
+  background-color: $light-100;
+  font-family: 'Inter';
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+::selection {
+  background-color: none;
 }
 </style>

@@ -1,0 +1,40 @@
+@import "./variables.scss";
+
+.absolute-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.border-l300 {
+    box-sizing: border-box;
+    border: 1px solid $light-300;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+$colors: blue, red, lime;
+
+@each $color in $colors {
+    .wireframe-#{$color} {
+        box-sizing: border-box;
+        border: 1px solid $color;
+    }
+}
+
+$margin-sizes: 5, 10, 20, 30, 40, 50, 100;
+$directions: top, left, bottom, right;
+$box-model: margin, padding;
+
+@each $size in $margin-sizes {
+    @each $direction in $directions {
+        @each $type in $box-model {
+            .#{str-slice($type, 1, 1)}#{str-slice($direction, 1, 1)}-#{$size} {
+                #{$type}-#{$direction}: #{$size}px;
+            }
+        }
+    }
+}
