@@ -1,6 +1,8 @@
 <template>
     <div id="center-box" class="absolute-center">
-        <slot name="title" />
+        <div id="title">
+            <slot name="title" />
+        </div>
         <div id="gradient-generator-box">
             <Properties
                 :gradient-colors="gradientColors"
@@ -8,7 +10,8 @@
                 :gradient-style="getStyle"
                 @update="updateGradient"
                 @select-color="selectColor"
-                @set-color-props="setColorProps" />
+                @set-color-props="setColorProps"
+                @new-color="newColor" />
             <Display
                 :gradient-colors="gradientColors"
                 :gradient-style="getStyle" />
@@ -55,6 +58,13 @@ export default {
                 position: props.position,
                 opacity: props.opacity
             }
+        },
+        newColor(position) {
+            this.gradientColors.push({
+                hex: '#ffffff',
+                position: position,
+                opacity: 1
+            })
         }
     }
 }
@@ -75,7 +85,9 @@ export default {
 
 #center-box {
     margin-top: -37.5px;
+}
 
+#title {
     h2 {
         font-size: 32px;
         line-height: 30px;
@@ -94,5 +106,7 @@ export default {
         text-align: center;
         margin: 0;
     }
+
+    cursor: default;
 }
 </style>

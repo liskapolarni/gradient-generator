@@ -3,20 +3,35 @@
     @mouseup="resetMouse"
     @mouseleave="resetMouse"
     @mousemove="updateMouse">
+
     <div id="visual-line"
       class="absolute-center border-l300"
       :style="{ background: gradient }"
       ref="line">
-      <div class="color-point border-l300 pointer"
-        v-for="(color, index) in gradientColors"
-        :key="index"
-        :class="{ selected: gradientColors[selectedColor].hex == color.hex }"
-        :style="getMargin(color.position)"
-        @mousedown="startMoving(color.hex, index)">
-        <div class="inside-color absolute-center"
-        :style="{ backgroundColor: color.hex }"></div>
+
+      <div id="new-point"
+        :style="{ left: `${mouse.x-10}px` }"
+        v-if="!hideNewPoint"
+        @click="newColor">
+        +
       </div>
+
+      <transition-group name="point">
+        <div class="color-point border-l300 pointer"
+          v-for="(color, index) in gradientColors"
+          :key="index"
+          :class="{ selected: gradientColors[selectedColor].hex == color.hex }"
+          :style="getMargin(color.position)"
+          @mousedown="startMoving(color.hex, index)">
+
+          <div class="inside-color absolute-center"
+            :style="{ backgroundColor: color.hex }"></div>
+
+        </div>
+      </transition-group>
+
     </div>
+
   </div>
 </template>
 
@@ -33,22 +48,18 @@ export default {
           left: false,
           right: false
         }
-      }
+      },
+      hideNewPoint: false
     }
   },
   methods: {
     getMargin(position) {
-      if (position < 50) {
-        return {
-          left: `calc(${position}% - 2px)`
-        }
-      } else {
-        return {
-          right: `calc(${100-position}% - 2px)`
-        }
+      return {
+        left: `calc(${position}% - 18px)`
       }
     },
     startMoving(color, index) {
+      this.hideNewPoint = true
       this.$emit('select-color', color)
 
       Object.assign(this.mouse, {
@@ -60,6 +71,8 @@ export default {
       })
     },
     resetMouse() {
+      this.hideNewPoint = false
+
       Object.assign(this.mouse, {
         selected: null,
         pressed: {
@@ -69,7 +82,7 @@ export default {
       })
     },
     updateMouse(e) {
-      const positionX = Math.floor(e.clientX-(window.innerWidth-1000)/2)-20
+      const positionX = Math.round(e.clientX-(window.innerWidth-1000)/2)-36
       if (positionX >= 0 && positionX <= this.$refs.line.clientWidth) {
         this.mouse.x = positionX
       }
@@ -83,6 +96,10 @@ export default {
           opacity: opacity
         })
       }
+    },
+    newColor() {
+      const position = Math.round((this.mouse.x/this.$refs.line.clientWidth)*100)
+      this.$emit('new-color', position)
     }
   },
   computed: {
@@ -100,13 +117,18 @@ export default {
   position: relative;
   width: 100%;
   height: 100px;
+  border-bottom: 1px solid $light-200;
 }
 
 #visual-line {
   position: absolute;
   height: 20px;
-  width: calc(100% - 40px);
+  width: calc(100% - 76px);
   border-radius: 12px;
+
+  &:hover #new-point {
+    display: block;
+  }
 }
 
 .color-point {
@@ -135,5 +157,34 @@ export default {
   &:active {
     transform: scale(1);
   }
+}
+
+#new-point {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 10px);
+  height: 20px;
+  width: 20px;
+  background-color: rgba($light-100,0.5);
+  border-radius: 10px;
+  line-height: 18px;
+  text-align: center;
+  color: $light-100;
+  cursor: pointer;
+  display: none;
+}
+
+.point-enter-from, .point-leave-to {
+  opacity: 0.5;
+  transform: scale(0.5);
+}
+
+.point-enter-to, .point-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.point-enter-active, .point-leave-active {
+  transition: all 0.2s ease;
 }
 </style>

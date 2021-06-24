@@ -7,6 +7,7 @@ $dark-200: darken($dark-100, 10%);
 $dark-300: darken($dark-100, 15%);
 $dark-400: darken($dark-100, 20%);
 
-$gray: #b8b6bb;
+$gray-100: #b8b6bb;
+$gray-200: darken($gray-100, 10%);
 $primary: #1e5aff;
 $red: #d13430;

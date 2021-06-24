@@ -37,6 +37,6 @@ body {
 }
 
 ::selection {
-  background-color: none;
+  background: none;
 }
 </style>

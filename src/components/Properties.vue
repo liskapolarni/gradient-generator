@@ -1,6 +1,5 @@
 <template>
-    <div id="color-properties"
-        @mouseup="resetMouse">
+    <div id="color-properties">
         <TabsSwitcher
             :selected-tab="selectedTab"
             @select-tab="selectTab" />
@@ -9,9 +8,9 @@
                 :gradient-colors="gradientColors"
                 :selected-color="selectedColor"
                 :gradient-style="gradientStyle"
-                :mouse="mouse"
                 @select-color="selectColor"
-                @set-color-props="setColorProps" />
+                @set-color-props="setColorProps"
+                @new-color="newColor" />
             <input type="text" class="ml-20 mt-20 pl-10"
                 @keyup="update" v-model="input.hex" />
             <input type="text" class="ml-20 mt-20 pl-10"
@@ -20,7 +19,7 @@
                 @keyup="update" v-model="input.opacity" />
         </div>
         <div v-else-if="selectedTab == 'CSS'">
-            <p>CSS code is going to be shown here.</p>
+            <CodeSnippet :gradient-style="gradientStyle" />
         </div>
     </div>
 </template>
@@ -28,11 +27,13 @@
 <script>
 import TabsSwitcher from './TabsSwitcher.vue'
 import VisualizationLine from './VisualizationLine.vue'
+import CodeSnippet from './CodeSnippet.vue'
 
 export default {
     components: {
         TabsSwitcher,
-        VisualizationLine
+        VisualizationLine,
+        CodeSnippet
     },
     props: ['gradient-colors', 'selected-color', 'gradient-style'],
     data() {
@@ -58,14 +59,14 @@ export default {
                 position: props.position,
                 opacity: props.opacity
             })
+        },
+        newColor(position) {
+            this.$emit('new-color', position)
         }
     },
     watch: {
-        selectedColor: {
-            handler: function() {
-                this.input = {...this.gradientColors[this.selectedColor]}
-            },
-            deep: true
+        selectedColor() {
+            this.input = {...this.gradientColors[this.selectedColor]}
         },
         gradientColors: {
             handler: function() {

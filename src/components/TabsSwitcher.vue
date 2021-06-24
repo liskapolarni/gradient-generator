@@ -44,7 +44,7 @@ export default {
     vertical-align: top;
     padding: 0 20px 0 20px;
     text-align: center;
-    color: $gray;
+    color: $gray-100;
     font-size: 16px;
     line-height: 50px;
     height: 50px;
