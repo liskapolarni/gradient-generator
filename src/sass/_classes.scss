@@ -45,6 +45,10 @@ $box-model: margin, padding;
     }
 }
 
+.opacityhalf {
+    opacity: 0.5;
+}
+
 .btn {
     width: fit-content;
     height: 40px;
@@ -53,30 +57,65 @@ $box-model: margin, padding;
     font-size: 18px;
     line-height: 40px;
     text-align: center;
-    color: $light-100;
     cursor: pointer;
+    border: 1px solid $light-200;
+    box-sizing: border-box;
+    color: $gray-100;
 
     &.blue {
         background-color: $primary;
+        color: $light-100;
+        border: none;
 
         &:hover {
-            background-color: darken($primary, 10%);
+            background-color: darken($primary, 5%);
         }
 
         &:active {
-            background-color: darken($primary, 15%);
+            background-color: darken($primary, 10%);
         }
     }
 
     &.red {
         background-color: $red;
+        color: $light-100;
+        border: none;
 
         &:hover {
-            background-color: darken($red, 10%);
+            background-color: darken($red, 5%);
         }
 
         &:active {
-            background-color: darken($red, 15%);
+            background-color: darken($red, 10%);
         }
+    }
+
+    transition: all 0.1s ease;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+.right {
+    float: right;
+}
+
+.invert {
+    filter: invert(1);
+}
+
+.btn-icon {
+    height: 24px;
+    width: 24px;
+    margin-top: 8px;
+    vertical-align: top;
+    background-size: cover;
+    display: inline-block;
+}
+
+@each $icon-name in save, delete, reset, star, starfull {
+    .#{$icon-name} {
+        background-image: url('/assets/icons/#{$icon-name}.png')
     }
 }

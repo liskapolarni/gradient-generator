@@ -12,7 +12,8 @@
                 @update="update"
                 @select-color="selectColor"
                 @set-color-props="setColorProps"
-                @new-color="newColor" />
+                @new-color="newColor"
+                @remove-color="removeColor" />
             <Display
                 :gradient-colors="gradientColors"
                 :gradient-style="getStyle" />
@@ -121,6 +122,16 @@ export default {
             if (appearTwice == 0) {
                 this.gradientColors.sort((a,b) => a.position - b.position)
             }
+        },
+        removeColor(colorObject) {
+            let index = this.gradientColors.indexOf(colorObject)
+            this.gradientColors = this.gradientColors.filter((object) => object != colorObject)
+
+            if (index > 0) {
+                index -= 1
+            }
+
+            this.selectColor(this.gradientColors[index].id)
         }
     },
     watch: {

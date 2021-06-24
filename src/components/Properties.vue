@@ -39,7 +39,17 @@
                         @keyup="update" v-model="inputRotation" />
                 </div>
 
-                <div class="btn blue relative-center mt-20">Randomize gradient</div>
+                <div class="btn relative-center mt-20"
+                    :class="{ red: gradientColors.length > 2 }"
+                    @click="removeColor">
+                    <div class="btn-icon delete"
+                        :class="{
+                            opacityhalf: gradientColors.length <= 2,
+                            invert: gradientColors.length > 2
+                        }">
+                    </div>
+                    Remove point
+                </div>
             </div>
         </div>
         <div v-else-if="selectedTab == 'CSS'">
@@ -97,6 +107,11 @@ export default {
                 position: this.colorObject.position,
                 opacity: this.colorObject.opacity
             })
+        },
+        removeColor() {
+            if (this.gradientColors.length > 2) {
+                this.$emit('remove-color', this.colorObject)
+            }
         }
     },
     watch: {

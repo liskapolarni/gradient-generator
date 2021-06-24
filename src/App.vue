@@ -3,7 +3,7 @@
     <GradientGenerator>
       <template v-slot:title>
         <h2>Gradient Generator</h2>
-        <p>Generate a beautiful gradient for your next project.</p>
+        <p>Generate a beautiful gradient for your next project</p>
       </template>
     </GradientGenerator>
   </main>

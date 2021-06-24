@@ -16,19 +16,17 @@
         +
       </div>
 
-      <transition-group name="point">
-        <div class="color-point border-l300 pointer"
-          v-for="(color, index) in gradientColors"
-          :key="index"
-          :class="{ selected: color.id == selectedColor }"
-          :style="getMargin(color.position)"
-          @mousedown="startMoving(color.id)">
+      <div class="color-point border-l300 pointer"
+        v-for="(color, index) in gradientColors"
+        :key="index"
+        :class="{ selected: color.id == selectedColor }"
+        :style="getMargin(color.position)"
+        @mousedown="startMoving(color.id)">
 
-          <div class="inside-color absolute-center"
-            :style="{ backgroundColor: color.hex }"></div>
+        <div class="inside-color absolute-center"
+          :style="{ backgroundColor: color.hex }"></div>
 
-        </div>
-      </transition-group>
+      </div>
 
     </div>
 
@@ -175,19 +173,5 @@ export default {
   color: $light-100;
   cursor: pointer;
   display: none;
-}
-
-.point-enter-from, .point-leave-to {
-  opacity: 0.5;
-  transform: scale(0.5);
-}
-
-.point-enter-to, .point-leave-from {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.point-enter-active, .point-leave-active {
-  transition: all 0.2s ease;
 }
 </style>
