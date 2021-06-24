@@ -20,9 +20,9 @@
         <div class="color-point border-l300 pointer"
           v-for="(color, index) in gradientColors"
           :key="index"
-          :class="{ selected: gradientColors[selectedColor].hex == color.hex }"
+          :class="{ selected: color.id == selectedColor }"
           :style="getMargin(color.position)"
-          @mousedown="startMoving(color.hex, index)">
+          @mousedown="startMoving(color.id)">
 
           <div class="inside-color absolute-center"
             :style="{ backgroundColor: color.hex }"></div>
@@ -58,12 +58,13 @@ export default {
         left: `calc(${position}% - 18px)`
       }
     },
-    startMoving(color, index) {
+    startMoving(id) {
       this.hideNewPoint = true
-      this.$emit('select-color', color)
+      const colorObject = this.gradientColors.find((object) => object.id == id)
+      this.$emit('select-color', colorObject.id)
 
       Object.assign(this.mouse, {
-        selected: index,
+        selected: this.selectedColor,
         pressed: {
           left: true,
           right: this.mouse.pressed.right
@@ -86,13 +87,15 @@ export default {
       if (positionX >= 0 && positionX <= this.$refs.line.clientWidth) {
         this.mouse.x = positionX
       }
+      
+      const colorPosition = Math.round(this.mouse.x/(this.$refs.line.clientWidth/100))
 
       if (this.mouse.selected !== null) {
-        const { hex, opacity } = this.gradientColors[this.mouse.selected]
+        const { hex, opacity, id } = this.gradientColors.find((object) => object.id == this.selectedColor)
         this.$emit('set-color-props', {
-          id: this.mouse.selected,
+          id: id,
           hex: hex,
-          position: Math.round(this.mouse.x/(this.$refs.line.clientWidth/100)),
+          position: colorPosition,
           opacity: opacity
         })
       }

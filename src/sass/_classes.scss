@@ -1,10 +1,16 @@
-@import "./variables.scss";
+@import "./_variables.scss";
 
 .absolute-center {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.relative-center {
+    position: relative;
+    display: block;
+    margin: 0 auto;
 }
 
 .border-l300 {
@@ -35,6 +41,42 @@ $box-model: margin, padding;
             .#{str-slice($type, 1, 1)}#{str-slice($direction, 1, 1)}-#{$size} {
                 #{$type}-#{$direction}: #{$size}px;
             }
+        }
+    }
+}
+
+.btn {
+    width: fit-content;
+    height: 40px;
+    padding: 0 10px 0 10px;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    color: $light-100;
+    cursor: pointer;
+
+    &.blue {
+        background-color: $primary;
+
+        &:hover {
+            background-color: darken($primary, 10%);
+        }
+
+        &:active {
+            background-color: darken($primary, 15%);
+        }
+    }
+
+    &.red {
+        background-color: $red;
+
+        &:hover {
+            background-color: darken($red, 10%);
+        }
+
+        &:active {
+            background-color: darken($red, 15%);
         }
     }
 }

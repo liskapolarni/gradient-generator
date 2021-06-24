@@ -8,7 +8,8 @@
                 :gradient-colors="gradientColors"
                 :selected-color="selectedColor"
                 :gradient-style="getStyle"
-                @update="updateGradient"
+                :rotation="rotation"
+                @update="update"
                 @select-color="selectColor"
                 @set-color-props="setColorProps"
                 @new-color="newColor" />
@@ -31,8 +32,8 @@ export default {
     data() {
         return {
             gradientColors: [
-                { hex: '#F9655B', position: 0, opacity: 1 },
-                { hex: '#EE821A', position: 100, opacity: 1 }
+                { id: 0, hex: '#F9655B', position: 0, opacity: 1 },
+                { id: 1, hex: '#EE821A', position: 100, opacity: 1 }
             ],
             selectedColor: 0,
             rotation: 45,
@@ -40,11 +41,13 @@ export default {
         }
     },
     methods: {
-        updateGradient(colorObject) {
-            this.gradientColors[this.selectedColor] = {...colorObject}
+        update(colorObject, rotation) {
+            const index = this.gradientColors.indexOf(this.gradientColors.find(object => object.id == colorObject.id))
+            this.gradientColors[index] = {...colorObject}
+            this.rotation = rotation
         },
-        selectColor(color) {
-            this.selectedColor = this.gradientColors.findIndex(object => object.hex == color)
+        selectColor(id) {
+            this.selectedColor = id
         },
         getStyle({ rotate, customRotation }) {
             const colors = this.gradientColors.map(color => `${color.hex} ${color.position}%`).join(", ")
@@ -53,18 +56,79 @@ export default {
             return `linear-gradient(${rotation}deg, ${colors})`
         },
         setColorProps(props) {
-            this.gradientColors[props.id] = {
-                hex: props.hex,
-                position: props.position,
-                opacity: props.opacity
+            for (let object of this.gradientColors) {
+                if (object.id == props.id) {
+                    Object.assign(object, {
+                        hex: props.hex,
+                        position: props.position,
+                        opacity: props.opacity
+                    })
+                }
             }
         },
         newColor(position) {
+            const Color = require('color')
+
             this.gradientColors.push({
+                id: this.gradientColors.length,
                 hex: '#ffffff',
                 position: position,
                 opacity: 1
             })
+
+            this.sortColors()
+
+            const index = this.gradientColors.indexOf(this.gradientColors.find(object => object.id == this.gradientColors.length-1))
+            let beforeColor, afterColor
+
+            if (index > 0) {
+                const {hex, position} = this.gradientColors[index-1]
+                beforeColor = { hex: hex, rgb: Color.rgb(hex).color, position: position }
+            }
+
+            if (index < this.gradientColors.length-1) {
+                const {hex, position} = this.gradientColors[index+1]
+                afterColor = { hex: hex, rgb: Color.rgb(hex).color, position: position }
+            }
+
+            let mixedColor
+            if (beforeColor && afterColor) {
+                const averageRGB = [...Array(3).keys()].map(index => (beforeColor.rgb[index]+afterColor.rgb[index])/2)
+                const averageColor = Color.rgb(averageRGB).hex()
+
+                mixedColor = averageColor
+            } else if (beforeColor) {
+                mixedColor = beforeColor.hex
+            } else {
+                mixedColor = afterColor.hex
+            }
+
+            Object.assign(this.gradientColors[index], {
+                hex: mixedColor
+            })
+        },
+        sortColors() {
+            const positions = this.gradientColors.map((object) => object.position)
+            let appearTwice = 0
+
+            for (let position of positions) {
+                const appearTimes = positions.filter(item => item == position).length
+                if (appearTimes > 1) {
+                    appearTwice += 1
+                }
+            }
+            
+            if (appearTwice == 0) {
+                this.gradientColors.sort((a,b) => a.position - b.position)
+            }
+        }
+    },
+    watch: {
+        gradientColors: {
+            handler: function() {
+                this.sortColors()
+            },
+            deep: true
         }
     }
 }
