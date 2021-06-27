@@ -61,11 +61,12 @@ $box-model: margin, padding;
     border: 1px solid $light-200;
     box-sizing: border-box;
     color: $gray-100;
+    background-color: $light-100;
 
     &.blue {
-        background-color: $primary;
-        color: $light-100;
-        border: none;
+        background-color: $primary !important;
+        color: $light-100 !important;
+        border: none !important;
 
         &:hover {
             background-color: darken($primary, 5%);
@@ -77,9 +78,9 @@ $box-model: margin, padding;
     }
 
     &.red {
-        background-color: $red;
-        color: $light-100;
-        border: none;
+        background-color: $red !important;
+        color: $light-100 !important;
+        border: none !important;
 
         &:hover {
             background-color: darken($red, 5%);
@@ -90,7 +91,11 @@ $box-model: margin, padding;
         }
     }
 
-    transition: all 0.1s ease;
+    &.darkmode {
+        color: $dark-200;
+        background-color: lighten($dark-100, 10%);
+        border: none;
+    }
 }
 
 .inlineblock {
@@ -114,7 +119,7 @@ $box-model: margin, padding;
     display: inline-block;
 }
 
-@each $icon-name in save, delete, reset, star, starfull {
+@each $icon-name in delete, showmore, close {
     .#{$icon-name} {
         background-image: url('/assets/icons/#{$icon-name}.png')
     }

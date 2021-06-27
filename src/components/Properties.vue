@@ -1,18 +1,23 @@
 <template>
-    <div id="color-properties">
+    <div id="color-properties"
+        :class="{ dark: darkMode }">
         <TabsSwitcher
             :selected-tab="selectedTab"
+            :dark-mode="darkMode"
             @select-tab="selectTab" />
         <div v-if="selectedTab == 'Editor'">
             <VisualizationLine
                 :gradient-colors="gradientColors"
                 :selected-color="selectedColor"
                 :gradient-style="gradientStyle"
+                :dark-mode="darkMode"
                 @select-color="selectColor"
                 @set-color-props="setColorProps"
                 @new-color="newColor" />
 
-            <ColorPicker @set-color="setColor">
+            <ColorPicker
+                :dark-mode="darkMode"
+                @set-color="setColor">
                 <div class="input-box w-240 mt-20">
                     <label for="color">COLOR</label>
                     <input type="text" class="ml-20 mt-20 pl-10" name="color"
@@ -40,11 +45,14 @@
                 </div>
 
                 <div class="btn relative-center mt-20"
-                    :class="{ red: gradientColors.length > 2 }"
+                    :class="{
+                        red: gradientColors.length > 2,
+                        darkmode: darkMode
+                    }"
                     @click="removeColor">
                     <div class="btn-icon delete"
                         :class="{
-                            opacityhalf: gradientColors.length <= 2,
+                            opacityhalf: gradientColors.length <= 2 && !darkMode,
                             invert: gradientColors.length > 2
                         }">
                     </div>
@@ -53,7 +61,9 @@
             </div>
         </div>
         <div v-else-if="selectedTab == 'CSS'">
-            <CodeSnippet :gradient-style="gradientStyle" />
+            <CodeSnippet
+                :gradient-style="gradientStyle"
+                :dark-mode="darkMode" />
         </div>
     </div>
 </template>
@@ -71,7 +81,7 @@ export default {
         ColorPicker,
         CodeSnippet
     },
-    props: ['gradient-colors', 'selected-color', 'gradient-style', 'rotation'],
+    props: ['gradient-colors', 'selected-color', 'gradient-style', 'rotation', 'dark-mode'],
     data() {
         return {
             selectedTab: 'Editor',
@@ -141,6 +151,18 @@ export default {
     border-radius: 12px 0 0 12px;
     width: 60%;
     height: 100%;
+
+    &.dark {
+        label {
+            color: $light-100;
+        }
+
+        input[type=text] {
+            border: none;
+            background-color: $dark-100;
+            color: $light-100;
+        }
+    }
 }
 
 input[type=text] {

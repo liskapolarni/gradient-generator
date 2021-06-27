@@ -1,24 +1,31 @@
 <template>
-    <div id="center-box" class="absolute-center">
-        <div id="title">
-            <slot name="title" />
+    <main :class="{ dark: darkMode }">
+        <div id="center-box" class="absolute-center">
+            <div id="title"
+                :class="{ dark: darkMode }">
+                <slot name="title" />
+            </div>
+            <div id="gradient-generator-box"
+                :class="{ dark: darkMode }">
+                <Properties
+                    :gradient-colors="gradientColors"
+                    :selected-color="selectedColor"
+                    :gradient-style="getStyle"
+                    :rotation="rotation"
+                    :dark-mode="darkMode"
+                    @update="update"
+                    @select-color="selectColor"
+                    @set-color-props="setColorProps"
+                    @new-color="newColor"
+                    @remove-color="removeColor" />
+                <Display
+                    :gradient-colors="gradientColors"
+                    :gradient-style="getStyle"
+                    :dark-mode="darkMode"
+                    @set-dark="setDarkMode" />
+            </div>
         </div>
-        <div id="gradient-generator-box">
-            <Properties
-                :gradient-colors="gradientColors"
-                :selected-color="selectedColor"
-                :gradient-style="getStyle"
-                :rotation="rotation"
-                @update="update"
-                @select-color="selectColor"
-                @set-color-props="setColorProps"
-                @new-color="newColor"
-                @remove-color="removeColor" />
-            <Display
-                :gradient-colors="gradientColors"
-                :gradient-style="getStyle" />
-        </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -32,13 +39,16 @@ export default {
     },
     data() {
         return {
+            // gradient
             gradientColors: [
                 { id: 0, hex: '#F9655B', position: 0, opacity: 1 },
                 { id: 1, hex: '#EE821A', position: 100, opacity: 1 }
             ],
             selectedColor: 0,
             rotation: 45,
-            gradientStyle: ''
+            gradientStyle: '',
+            // dark mode
+            darkMode: false
         }
     },
     methods: {
@@ -132,6 +142,10 @@ export default {
             }
 
             this.selectColor(this.gradientColors[index].id)
+        },
+        // dark mode
+        setDarkMode() {
+            this.darkMode = !this.darkMode
         }
     },
     watch: {
@@ -148,6 +162,17 @@ export default {
 <style lang="scss">
 @import "../sass/_variables.scss";
 
+main {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: $light-100;
+
+    &.dark {
+        background-color: $dark-100;
+    }
+}
+
 #gradient-generator-box {
     position: relative;
     display: flex;
@@ -156,6 +181,12 @@ export default {
     margin-top: 20px;
     border: 1px solid $light-300;
     border-radius: 12px;
+    background-color: $light-100;
+
+    &.dark {
+        background-color: $dark-200;
+        border: 1px solid $dark-300;
+    }
 }
 
 #center-box {
@@ -180,6 +211,10 @@ export default {
     h2, p {
         text-align: center;
         margin: 0;
+    }
+
+    &.dark h2, &.dark p {
+        color: $light-100;
     }
 
     cursor: default;

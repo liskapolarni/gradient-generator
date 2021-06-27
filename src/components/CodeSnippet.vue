@@ -1,5 +1,6 @@
 <template>
-    <div id="code">
+    <div id="code"
+        :class="{ dark: darkMode }">
         <div id="wrapper">
             <div v-for="(prefix, index) in prefixes"
                 :key="index" class="snippet">
@@ -21,7 +22,7 @@
 <script>
 
 export default {
-    props: ['gradient-style'],
+    props: ['gradient-style', 'dark-mode'],
     data() {
         return {
             prefixes: [
@@ -68,6 +69,10 @@ export default {
         position: relative;
         width: calc(100% - 40px);
         margin-left: 20px;
+    }
+
+    &.dark h3, p {
+        color: $light-100;
     }
 }
 

@@ -1,10 +1,12 @@
 <template>
-    <div id="tabs">
+    <div id="tabs"
+        :class="{ dark: darkMode }">
         <div v-for="(name, index) in tabs"
             :key="index" class="tab pointer"
             :class="{
                 topleftradius: index == 0,
-                selected: selectedTab == name 
+                selected: selectedTab == name,
+                dark: darkMode
             }"
             @click="selectTab(name)">
             {{ name }}
@@ -14,7 +16,7 @@
 
 <script>
 export default {
-    props: ['selected-tab'],
+    props: ['selected-tab', 'dark-mode'],
     data() {
         return {
             tabs: ['Editor', 'CSS']
@@ -37,6 +39,11 @@ export default {
     box-sizing: border-box;
     border-bottom: 1px solid $light-200;
     border-top-left-radius: 12px;
+
+    &.dark {
+        border-bottom: 1px solid $dark-300;
+        background-color: $dark-300;
+    }
 }
 
 .tab {
@@ -66,6 +73,20 @@ export default {
 
     &.topleftradius {
         border-top-left-radius: 12px;
+    }
+
+    &.dark {
+        color: $light-300;
+
+        &.selected {
+            color: $light-100;
+            background-color: darken($dark-300, 1%);
+        }
+
+        &:active {
+            background-color: darken($dark-300, 3%);
+            color: $light-100;
+        }
     }
 }
 </style>

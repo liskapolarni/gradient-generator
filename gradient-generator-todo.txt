@@ -1,0 +1,10 @@
+todos:
+- randomize button
+- css - copy button
+- display component:
+	- rotation
+	- add to favourites
+-> favourites tab
+- scrollbar
+- media queries
+- input validation

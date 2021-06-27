@@ -26,7 +26,6 @@ export default {
 
 body {
   margin: 0;
-  background-color: $light-100;
   font-family: 'Inter';
 }
 

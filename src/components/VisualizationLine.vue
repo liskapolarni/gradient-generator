@@ -1,5 +1,6 @@
 <template>
   <div id="visual-line-container"
+    :class="{ dark: darkMode }"
     @mouseup="resetMouse"
     @mouseleave="resetMouse"
     @mousemove="updateMouse">
@@ -7,6 +8,7 @@
     <div id="visual-line"
       class="absolute-center border-l300"
       :style="{ background: gradient }"
+      :class="{ dark: darkMode }"
       ref="line">
 
       <div id="new-point"
@@ -19,7 +21,7 @@
       <div class="color-point border-l300 pointer"
         v-for="(color, index) in gradientColors"
         :key="index"
-        :class="{ selected: color.id == selectedColor }"
+        :class="{ selected: color.id == selectedColor, dark: darkMode }"
         :style="getMargin(color.position)"
         @mousedown="startMoving(color.id)">
 
@@ -35,7 +37,7 @@
 
 <script>
 export default {
-  props: ['gradient-colors', 'selected-color', 'gradient-style'],
+  props: ['gradient-colors', 'selected-color', 'gradient-style', 'dark-mode'],
   data() {
     return {
       mouse: {
@@ -119,6 +121,10 @@ export default {
   width: 100%;
   height: 100px;
   border-bottom: 1px solid $light-200;
+
+  &.dark {
+    border-bottom: 1px solid $dark-300;
+  }
 }
 
 #visual-line {
@@ -129,6 +135,10 @@ export default {
 
   &:hover #new-point {
     display: block;
+  }
+
+  &.dark {
+    border: 1px solid $dark-300;
   }
 }
 
@@ -157,6 +167,15 @@ export default {
 
   &:active {
     transform: scale(1);
+  }
+
+  &.dark {
+    background-color: $dark-300;
+    border: 1px solid $dark-400;
+    
+    &.selected {
+      border: 1px solid $light-100;
+    }
   }
 }
 

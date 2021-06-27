@@ -1,5 +1,6 @@
 <template>
-    <div id="color-picker">
+    <div id="color-picker"
+        :class="{ dark: darkMode }">
         <slot></slot>
         
         <div id="colors" class="ml-20 mt-20">
@@ -17,6 +18,7 @@
 
 <script>
 export default {
+    props: ['dark-mode'],
     data() {
         return {
             defaultColors: {
@@ -68,6 +70,10 @@ export default {
     width: 240px;
     box-sizing: border-box;
     border-right: 1px solid $light-200;
+
+    &.dark {
+        border-right: 1px solid $dark-300;
+    }
 }
 
 #colors {
