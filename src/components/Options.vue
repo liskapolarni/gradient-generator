@@ -4,13 +4,15 @@
         @click="setShowOptions">
     </div>
 
-    <div id="options-menu" v-if="showOptions">
-        <ul>
-            <li @click="setDarkMode">
-                Color mode: {{ colorMode }}
-            </li>
-        </ul>
-    </div>
+    <transition name="fade">
+        <div id="options-menu" v-if="showOptions">
+            <ul>
+                <li @click="setDarkMode">
+                    Color mode: {{ colorMode }}
+                </li>
+            </ul>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -95,7 +97,7 @@ export default {
             line-height: 32px;
             text-align: center;
             cursor: pointer;
-            padding: 10px;
+            padding: 5px 10px 5px 10px;
             border-radius: 8px;
 
             &:hover {
@@ -109,5 +111,17 @@ export default {
             transition: all 0.1s ease;
         }
     }
+}
+
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-to, .fade-leave-from {
+    opacity: 1;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: all 0.1s ease;
 }
 </style>

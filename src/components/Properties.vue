@@ -19,7 +19,7 @@
                 :dark-mode="darkMode"
                 @set-color="setColor">
                 <div class="input-box w-240 mt-20">
-                    <label for="color">COLOR</label>
+                    <label for="color">Color</label>
                     <input type="text" class="ml-20 mt-20 pl-10" name="color"
                         @keyup="update" v-model="input.hex" />
                 </div>
@@ -27,19 +27,19 @@
 
             <div id="inputs">
                 <div class="input-box halfwidth mt-20">
-                    <label for="position">POSITION</label>
+                    <label for="position">Position</label>
                     <input type="text" name="position"
                         @keyup="update" v-model="input.position" />
                 </div>
 
                 <div class="input-box halfwidth mt-20">
-                    <label for="opacity">OPACITY</label>
+                    <label for="opacity">Opacity</label>
                     <input type="text" name="opacity"
                         @keyup="update" v-model="input.opacity" />
                 </div>
 
                 <div class="input-box fullwidth mt-20">
-                    <label for="rotation">ROTATION</label>
+                    <label for="rotation">Rotation</label>
                     <input type="text" name="rotation"
                         @keyup="update" v-model="inputRotation" />
                 </div>
@@ -97,6 +97,27 @@ export default {
             this.$emit('select-color', id)
         },
         update() {
+            // color validation
+            if (this.input.hex.length < 1 || this.input.hex.length > 7) {
+                this.input.hex = "#FFFFFF"
+            }
+
+            const limits = {
+                position: 100,
+                opacity: 1
+            }
+
+            // position and opacity validation
+            Object.keys(limits).forEach((property) => {
+                this.input[property] = this.input[property].toString().replace(/[^\d]/g, "")
+                if (parseInt(this.input[property]) > limits[property]) {
+                    this.input[property] = 1
+                }
+            })
+
+            // rotation validation
+            this.inputRotation = this.inputRotation.toString().replace(/[^\d]/g, "")
+
             this.$emit('update', this.input, this.inputRotation)
         },
         setColorProps(props) {
@@ -208,5 +229,6 @@ label {
     padding-left: 20px;
     color: $dark-100;
     font-size: 12px;
+    text-transform: uppercase;
 }
 </style>

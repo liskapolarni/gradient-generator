@@ -71,7 +71,7 @@ export default {
         margin-left: 20px;
     }
 
-    &.dark h3, p {
+    &.dark h3, &.dark p {
         color: $light-100;
     }
 }

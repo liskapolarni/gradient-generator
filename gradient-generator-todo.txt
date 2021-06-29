@@ -8,3 +8,7 @@ todos:
 - scrollbar
 - media queries
 - input validation
+- opacity
+
+done:
+- dark mode
