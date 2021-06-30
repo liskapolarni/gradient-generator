@@ -31,7 +31,7 @@ $colors: blue, red, lime;
     }
 }
 
-$margin-sizes: 5, 10, 20, 30, 40, 50, 100;
+$margin-sizes: 3, 5, 10, 20, 30, 40, 50, 100;
 $directions: top, left, bottom, right;
 $box-model: margin, padding;
 
@@ -39,7 +39,7 @@ $box-model: margin, padding;
     @each $direction in $directions {
         @each $type in $box-model {
             .#{str-slice($type, 1, 1)}#{str-slice($direction, 1, 1)}-#{$size} {
-                #{$type}-#{$direction}: #{$size}px;
+                #{$type}-#{$direction}: #{$size}px !important;
             }
         }
     }
@@ -119,7 +119,7 @@ $box-model: margin, padding;
     display: inline-block;
 }
 
-@each $icon-name in delete, showmore, close {
+@each $icon-name in delete, showmore, close, copy {
     .#{$icon-name} {
         background-image: url('/assets/icons/#{$icon-name}.png')
     }

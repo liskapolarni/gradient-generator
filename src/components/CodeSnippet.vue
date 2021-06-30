@@ -11,8 +11,16 @@
                     {{ prefix.name }}
                 </h3>
                 <p>{{ prefix.description }}</p>
-                <div class="line">
-                    {{ "background: " + prefix.prefix + gradient }}
+                <div class="line"
+                    :class="{ dark: darkMode }">
+                    {{ getCode(prefix) }}
+                    <div class="click-to-copy"
+                        :class="{ dark: darkMode }"
+                        @click="copyText(getCode(prefix), prefix.name)"
+                        :ref="prefix.name">
+                        Click to copy
+                        <div class="btn-icon copy invert mt-3"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,9 +28,8 @@
 </template>
 
 <script>
-
 export default {
-    props: ['gradient-style', 'dark-mode'],
+    props: ['gradient-style', 'dark-mode', 'dark-mode'],
     data() {
         return {
             prefixes: [
@@ -30,21 +37,42 @@ export default {
                     name: 'Universal',
                     description: 'Works in most modern browsers',
                     prefix: '',
-                    img: 'web.png'
+                    img: 'icons/web.png'
                 },
                 {
                     name: 'Firefox',
                     description: 'Legacy, not needed in modern versions',
                     prefix: '-moz-',
-                    img: 'firefox.png'
+                    img: 'icons/firefox.png'
                 },
                 {
                     name: 'Chrome, Safari',
                     description: 'Legacy, not needed in modern versions',
                     prefix: '-webkit-',
-                    img: 'chrome.png'
+                    img: 'icons/chrome.png'
                 }
             ]
+        }
+    },
+    methods: {
+        getCode(prefix) {
+            return "background: " + prefix.prefix + this.gradient + ";"
+        },
+        copyText(text, copyButtonRef) {
+            const secretTextarea = document.createElement("textarea")
+            document.body.appendChild(secretTextarea)
+            secretTextarea.value = text
+            secretTextarea.select()
+            document.execCommand("copy")
+            document.body.removeChild(secretTextarea)
+
+            const oldValue = this.$refs[copyButtonRef].innerHTML
+            this.$refs[copyButtonRef].innerHTML = "Copied!"
+            setTimeout(() => {
+                if (this.$refs[copyButtonRef] !== null) {
+                    this.$refs[copyButtonRef].innerHTML = oldValue
+                }
+            }, 2000)
         }
     },
     computed: {
@@ -97,12 +125,52 @@ export default {
     position: relative;
     width: calc(100% - 20px);
     background-color: $dark-100;
-    padding: 10px;
+    padding: 10px 10px 40px 10px;
+    border-radius: 4px;
     line-height: 20px;
-    font-size: 16px;
     font-family: 'Arvo';
     color: $light-100;
-    border-radius: 4px;
+
+    &.dark {
+        background-color: lighten($dark-100, 10%);
+    }
+
+    .click-to-copy {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background-color: $dark-200; 
+        border-radius: 0 0 4px 4px;
+        text-align: center;
+        line-height: 30px;
+        color: $light-100;
+        font-size: 14px;
+        font-family: 'Inter';
+        
+        &:hover {
+            background-color: darken($dark-200, 4%);
+        }
+
+        &:active {
+            background-color: darken($dark-200, 2%);
+        }
+
+        &.dark {
+            background-color: $dark-100;
+
+            &:hover {
+                background-color: darken($dark-100, 2%);
+            }
+
+            &:active {
+                background-color: darken($dark-100, 1%);
+            }
+        }
+
+        cursor: pointer;
+    }
 }
 
 .prefix-img {

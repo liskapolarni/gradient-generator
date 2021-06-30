@@ -1,17 +1,11 @@
 todos:
 - randomize button
-- css - copy button
 - display component:
 	- rotation
 	- add to favourites
 -> favourites tab
-- scrollbar
 - media queries
-- opacity
 - dark mode setting kept in localstorage
 
 done:
 - dark mode
-
-bugs:
-- opacity: allow decimal (for example 0.5)

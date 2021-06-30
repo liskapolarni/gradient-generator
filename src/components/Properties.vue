@@ -27,19 +27,19 @@
 
             <div id="inputs">
                 <div class="input-box halfwidth mt-20">
-                    <label for="position">Position</label>
+                    <label for="position">Position (0-100)</label>
                     <input type="text" name="position"
                         @keyup="update" v-model="input.position" />
                 </div>
 
                 <div class="input-box halfwidth mt-20">
-                    <label for="opacity">Opacity</label>
+                    <label for="opacity">Opacity (0-1)</label>
                     <input type="text" name="opacity"
                         @keyup="update" v-model="input.opacity" />
                 </div>
 
                 <div class="input-box fullwidth mt-20">
-                    <label for="rotation">Rotation</label>
+                    <label for="rotation">Rotation (°)</label>
                     <input type="text" name="rotation"
                         @keyup="update" v-model="inputRotation" />
                 </div>
@@ -120,12 +120,12 @@ export default {
                 this.input.hex = "#FFFFFF"
             }
 
+            // position and opacity validation
             const limits = {
                 position: 100.0,
                 opacity: 1.0
             }
 
-            // position and opacity validation
             Object.keys(limits).forEach((property) => {
                 this.input[property] = this.input[property].toString().match(/^\d*\.?\d*$/, "")
                 if (parseFloat(this.input[property]) > limits[property]) {
@@ -136,7 +136,8 @@ export default {
             // rotation validation
             this.inputRotation = this.inputRotation.toString().replace(/[^\d]/g, "")
 
-            this.$emit('update', this.input, this.inputRotation)
+            
+                this.$emit('update', this.input, this.inputRotation)
         },
         setColorProps(props) {
             this.$emit('set-color-props', {
