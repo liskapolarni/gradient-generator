@@ -1,9 +1,12 @@
 <template>
-    <div id="color-display"
-        :style="{ background: gradient }">
-        <Options
-            :dark-mode="darkMode"
-            @set-dark="setDark" />
+    <div id="color-display">
+        <div id="transparent-checkerboard"></div>
+        <div id="gradient"
+            :style="{ background: gradient }">
+            <Options
+                :dark-mode="darkMode"
+                @set-dark="setDark" />
+        </div>
     </div>
 </template>
 
@@ -36,5 +39,27 @@ export default {
     border-radius: 0px 12px 12px 0px;
     width: 40%;
     height: 100%;
+}
+
+@mixin absolutefull {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 12px 12px 0;
+}
+
+#transparent-checkerboard {
+    @include absolutefull();
+
+    z-index: 100;
+    background-image: url('/assets/transparent.png');
+}
+
+#gradient {
+    @include absolutefull();
+
+    z-index: 200;
 }
 </style>

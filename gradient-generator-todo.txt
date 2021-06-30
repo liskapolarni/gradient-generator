@@ -7,8 +7,11 @@ todos:
 -> favourites tab
 - scrollbar
 - media queries
-- input validation
 - opacity
+- dark mode setting kept in localstorage
 
 done:
 - dark mode
+
+bugs:
+- opacity: allow decimal (for example 0.5)

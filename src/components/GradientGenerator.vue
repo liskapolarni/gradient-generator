@@ -61,7 +61,11 @@ export default {
             this.selectedColor = id
         },
         getStyle({ rotate, customRotation }) {
-            const colors = this.gradientColors.map(color => `${color.hex} ${color.position}%`).join(", ")
+            const Color = require('color')
+
+            const colors = this.gradientColors.map(color => {
+                return `rgba(${Color(color.hex).rgb().array()},${color.opacity}) ${color.position}%`
+            }).join(", ")
             const rotation = rotate ? this.rotation : customRotation
             
             return `linear-gradient(${rotation}deg, ${colors})`
@@ -142,6 +146,7 @@ export default {
             }
 
             this.selectColor(this.gradientColors[index].id)
+            this.sortColors()
         },
         // dark mode
         setDarkMode() {

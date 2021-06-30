@@ -18,6 +18,7 @@
 <script>
 export default {
     props: ['dark-mode'],
+    emits: ['set-dark'],
     data() {
         return {
             showOptions: false

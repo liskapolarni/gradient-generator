@@ -92,6 +92,24 @@ export default {
     methods: {
         selectTab(name) {
             this.selectedTab = name
+
+            // in case some value is left empty, reset inputs
+            const resetValues = {
+                position: 0,
+                opacity: 1
+            }
+
+            Object.keys(resetValues).forEach((key) => {
+                if (this.input[key].toString().length == 0) {
+                    this.input[key] = resetValues[key]
+                }
+            })
+
+            if (this.inputRotation.toString().length == 0) {
+                this.inputRotation = 45
+            }
+            
+            this.$emit('update', this.input, this.inputRotation)
         },
         selectColor(id) {
             this.$emit('select-color', id)
@@ -103,15 +121,15 @@ export default {
             }
 
             const limits = {
-                position: 100,
-                opacity: 1
+                position: 100.0,
+                opacity: 1.0
             }
 
             // position and opacity validation
             Object.keys(limits).forEach((property) => {
-                this.input[property] = this.input[property].toString().replace(/[^\d]/g, "")
-                if (parseInt(this.input[property]) > limits[property]) {
-                    this.input[property] = 1
+                this.input[property] = this.input[property].toString().match(/^\d*\.?\d*$/, "")
+                if (parseFloat(this.input[property]) > limits[property]) {
+                    this.input[property] = limits[property]
                 }
             })
 
