@@ -159,6 +159,14 @@ export default {
                 this.sortColors()
             },
             deep: true
+        },
+        darkMode(newValue) {
+            localStorage.darkMode = newValue
+        }
+    },
+    mounted() {
+        if (localStorage.darkMode) {
+            this.darkMode = (localStorage.darkMode === "true")
         }
     }
 }

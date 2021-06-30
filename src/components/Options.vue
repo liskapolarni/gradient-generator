@@ -60,6 +60,7 @@ export default {
     background-position: 5px;
     background-color: rgba($dark-100, 0.25);
     border-radius: 20px;
+    box-shadow: 2px 2px 32px rgba($light-100, 0.1);
 
     &:hover {
         background-color: rgba($dark-100, 0.4);
