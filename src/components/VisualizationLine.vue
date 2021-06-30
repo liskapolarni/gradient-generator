@@ -83,7 +83,12 @@ export default {
       })
     },
     updateMouse(e) {
-      const positionX = Math.round(e.clientX-(window.innerWidth-1000)/2)-36
+      /* gets X coordinates of the cursor relative to the visualization line
+      takes in account which version is being shown - whether mobile or desktop
+      if the window's width is greater than 1020, then an offset is subtracted
+      from the real position */
+      const positionX = Math.round(e.clientX - ((window.innerWidth > 1020 ? 1 : 0) * (window.innerWidth-1000) / 2)) - 36
+
       if (positionX >= 0 && positionX <= this.$refs.line.clientWidth) {
         this.mouse.x = positionX
       }

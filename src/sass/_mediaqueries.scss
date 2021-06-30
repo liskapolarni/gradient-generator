@@ -1,0 +1,104 @@
+@media only screen and (max-width: 1020px) {
+    #center-box {
+        left: 0;
+        top: 60px;
+        transform: none;
+        width: calc(100vw - 2px);
+    }
+
+    #gradient-generator-box, #color-properties {
+        width: 100%;
+        display: block;
+        border-radius: 0px;
+    }
+
+    #color-properties {
+        #inputs {
+            width: calc(100% - 240px);
+
+            .fullwidth {
+                width: 100%;
+            }
+
+            .halfwidth {
+                width: 50%;
+            }
+        }
+    }
+
+    #color-display {
+        width: 100%;
+        position: block;
+        height: calc(100vh - 500px);
+
+        #gradient, #transparent-checkboard, #options-menu {
+            border-radius: 0px;
+        }
+    }
+
+    #tabs {
+        border-radius: 0px;
+
+        .tab {
+            &.topleftradius {
+                border-radius: 0px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .input-box {
+        label {
+            font-size: 11px;
+        }
+    }
+
+    #gradient-generator-box {
+        height: 490px;
+    }
+
+    #color-properties {
+        height: 490px;
+
+        #inputs {
+            height: 340px;
+
+            .halfwidth {
+                width: 100%;
+            }
+
+            .btn {
+                font-size: 12px;
+            }
+        }
+
+        #color-picker {
+            height: 340px;
+        }
+    }
+
+    #color-display {
+        height: calc(100vh - 590px);
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    #title {
+        h2 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    #color-properties {
+        #inputs {
+            .btn {
+                font-size: 10px;
+            }
+        }
+    }
+}

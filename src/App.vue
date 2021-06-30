@@ -23,6 +23,7 @@ export default {
 <style lang="scss">
 @import "./sass/_classes.scss";
 @import "./sass/_variables.scss";
+@import "./sass/_mediaqueries.scss";
 
 body {
   margin: 0;

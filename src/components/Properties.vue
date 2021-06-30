@@ -246,17 +246,17 @@ input[type=text] {
         margin: 25px 0 0 20px;
         padding-left: 10px;
     }
+
+    label {
+        position: absolute;
+        padding-left: 20px;
+        color: $dark-100;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
 }
 
 .w-240 {
     width: 240px;
-}
-
-label {
-    position: absolute;
-    padding-left: 20px;
-    color: $dark-100;
-    font-size: 12px;
-    text-transform: uppercase;
 }
 </style>

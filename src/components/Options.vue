@@ -10,6 +10,9 @@
                 <li @click="setDarkMode">
                     Color mode: {{ colorMode }}
                 </li>
+                <li>
+                    Language: <img :src="language" alt="flag">
+                </li>
             </ul>
         </div>
     </transition>
@@ -21,7 +24,8 @@ export default {
     emits: ['set-dark'],
     data() {
         return {
-            showOptions: false
+            showOptions: false,
+            tempLanguage: 'en'
         }
     },
     methods: {
@@ -40,6 +44,13 @@ export default {
                 case false:
                     return "☀️"
             }
+        },
+        language() {
+            const countryCode = {
+                en: 'gb',
+                cz: 'cz'
+            }
+            return `https://flagcdn.com/24x18/${countryCode[this.tempLanguage]}.png`
         }
     }
 }
@@ -111,6 +122,10 @@ export default {
             }
 
             transition: all 0.1s ease;
+
+            img {
+                padding-left: 10px;
+            }
         }
     }
 }
