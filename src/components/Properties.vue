@@ -86,7 +86,8 @@ export default {
         return {
             selectedTab: 'Editor',
             input: {...this.gradientColors.find(object => object.id == this.selectedColor)},
-            inputRotation: this.rotation
+            inputRotation: this.rotation,
+            lastValidColor: this.gradientColors[0].hex
         }
     },
     methods: {
@@ -109,6 +110,11 @@ export default {
                 this.inputRotation = 45
             }
             
+            // revert to last valid color if the currently
+            // entered color doesn't meet required criteria
+            if (![4,7].includes(this.input.hex.length)) {
+                this.input.hex = this.lastValidColor
+            }
             this.$emit('update', this.input, this.inputRotation)
         },
         selectColor(id) {
@@ -136,8 +142,10 @@ export default {
             // rotation validation
             this.inputRotation = this.inputRotation.toString().replace(/[^\d]/g, "")
 
-            
+            if ([4,7].includes(this.input.hex.length)) {
+                this.lastValidColor = this.input.hex
                 this.$emit('update', this.input, this.inputRotation)
+            }
         },
         setColorProps(props) {
             this.$emit('set-color-props', {
@@ -151,6 +159,7 @@ export default {
             this.$emit('new-color', position)
         },
         setColor(color) {
+            this.lastValidColor = color
             this.setColorProps({
                 id: this.selectedColor,
                 hex: color,

@@ -5,7 +5,12 @@ todos:
 	- add to favourites
 -> favourites tab
 - media queries
-- dark mode setting kept in localstorage
+- translations
 
 done:
 - dark mode
+	- localstorage
+- copy button
+
+bugs:
+- color validation
