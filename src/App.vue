@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <GradientGenerator
       :language="language"
       :messages="messages"
@@ -11,11 +11,12 @@
         </div>
       </template>
     </GradientGenerator>
-  </main>
+  </div>
 </template>
 
 <script>
 import GradientGenerator from './components/GradientGenerator.vue'
+import messagesJson from '../public/json/messages.json'
 
 export default {
   name: 'App',
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       language: 'en',
-      messagesObject: null
+      messagesObject: messagesJson
     }
   },
   methods: {
@@ -44,10 +45,6 @@ export default {
     }
   },
   mounted() {
-    fetch('/json/messages.json')
-      .then(response => response.json())
-      .then(messages => this.messagesObject = messages)
-
     if (localStorage.language) {
       this.language = localStorage.language
     }

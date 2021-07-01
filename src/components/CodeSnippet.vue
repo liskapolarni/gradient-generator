@@ -6,7 +6,7 @@
                 :key="index" class="snippet">
                 <h3>
                     <span v-if="prefix.img">
-                        <img :src="'/assets/' + prefix.img" class="prefix-img">
+                        <img :src="'../public/assets/icons/' + prefix.img" class="prefix-img">
                     </span>
                     {{ prefix.name }}
                 </h3>
@@ -35,17 +35,17 @@ export default {
             prefixes: [
                 {
                     prefix: '',
-                    img: 'icons/web.png'
+                    img: 'web.png'
                 },
                 {
                     name: 'Firefox',
                     prefix: '-moz-',
-                    img: 'icons/firefox.png'
+                    img: 'firefox.png'
                 },
                 {
                     name: 'Chrome, Safari',
                     prefix: '-webkit-',
-                    img: 'icons/chrome.png'
+                    img: 'chrome.png'
                 }
             ]
         }

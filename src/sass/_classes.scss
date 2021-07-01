@@ -22,15 +22,6 @@
     cursor: pointer;
 }
 
-$colors: blue, red, lime;
-
-@each $color in $colors {
-    .wireframe-#{$color} {
-        box-sizing: border-box;
-        border: 1px solid $color;
-    }
-}
-
 $margin-sizes: 3, 5, 10, 20, 30, 40, 50, 100;
 $directions: top, left, bottom, right;
 $box-model: margin, padding;
@@ -126,6 +117,6 @@ $box-model: margin, padding;
 
 @each $icon-name in delete, showmore, close, copy {
     .#{$icon-name} {
-        background-image: url('/assets/icons/#{$icon-name}.png')
+        background-image: url('../public/assets/icons/#{$icon-name}.png')
     }
 }
