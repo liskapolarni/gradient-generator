@@ -61,7 +61,7 @@ export default {
     @include absolutefull();
 
     z-index: 100;
-    background-image: url('/assets/transparent.png');
+    background-image: url('../../public/assets/transparent.png');
 }
 
 #gradient {
