@@ -48,6 +48,24 @@
 }
 
 @media only screen and (max-width: 540px) {
+    #title {
+        h2 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    #color-properties {
+        #inputs {
+            .btn {
+                font-size: 10px;
+            }
+        }
+    }
+
     .input-box {
         label {
             font-size: 11px;
@@ -81,24 +99,8 @@
     #color-display {
         height: calc(100vh - 590px);
     }
-}
 
-@media only screen and (max-width: 420px) {
-    #title {
-        h2 {
-            font-size: 24px;
-        }
-
-        p {
-            font-size: 12px;
-        }
-    }
-
-    #color-properties {
-        #inputs {
-            .btn {
-                font-size: 10px;
-            }
-        }
+    #code {
+        height: 440px;
     }
 }
