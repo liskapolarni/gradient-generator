@@ -5,7 +5,10 @@
             :style="{ background: gradient }">
             <Options
                 :dark-mode="darkMode"
-                @set-dark="setDark" />
+                :language="language"
+                :messages="messages"
+                @set-dark="setDark"
+                @switch-language="switchLanguage" />
         </div>
     </div>
 </template>
@@ -14,13 +17,17 @@
 import Options from './Options.vue'
 
 export default {
-    props: ['gradient-colors', 'gradient-style', 'dark-mode'],
+    props: ['gradient-colors', 'gradient-style', 'dark-mode', 'language', 'messages'],
+    emits: ['switch-language'],
     components: {
         Options
     },
     methods: {
         setDark() {
             this.$emit('set-dark')
+        },
+        switchLanguage(language) {
+            this.$emit('switch-language', language)
         }
     },
     computed: {

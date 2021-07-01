@@ -1,9 +1,14 @@
 <template>
   <main>
-    <GradientGenerator>
+    <GradientGenerator
+      :language="language"
+      :messages="messages"
+      @switch-language="switchLanguage">
       <template v-slot:title>
-        <h2>Gradient Generator</h2>
-        <p>Generate a beautiful gradient for your next project</p>
+        <div v-if="messages">
+          <h2>{{ messages.title }}</h2>
+          <p>{{ messages.subtitle }}</p>
+        </div>
       </template>
     </GradientGenerator>
   </main>
@@ -16,6 +21,36 @@ export default {
   name: 'App',
   components: {
     GradientGenerator
+  },
+  data() {
+    return {
+      language: 'en',
+      messagesObject: null
+    }
+  },
+  methods: {
+    switchLanguage(language) {
+      this.language = language
+    }
+  },
+  computed: {
+    messages() {
+      return this.messagesObject !== null ? this.messagesObject[this.language] : null
+    }
+  },
+  watch: {
+    language(newValue) {
+      localStorage.language = newValue
+    }
+  },
+  mounted() {
+    fetch('/json/messages.json')
+      .then(response => response.json())
+      .then(messages => this.messagesObject = messages)
+
+    if (localStorage.language) {
+      this.language = localStorage.language
+    }
   }
 }
 </script>

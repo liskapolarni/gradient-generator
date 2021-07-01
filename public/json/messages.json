@@ -1,0 +1,47 @@
+{
+
+    "en": {
+
+        "title": "Gradient Generator",
+        "subtitle": "Generates truly beautiful gradients. Really!",
+
+        "color": "color",
+        "position": "position",
+        "opacity": "opacity",
+        "rotation": "rotation",
+
+        "removePoint": "Remove point",
+        
+        "colorMode": "Color mode:",
+        "language": "Language:",
+
+        "universal": "Universal",
+        "modern": "Works in most modern browsers",
+        "legacy": "Legacy, not needed in modern versions",
+        "copy": "Click to copy"
+
+    },
+
+    "cz": {
+
+        "title": "Generátor barevných přechodů",
+        "subtitle": "Vytváří opravdu skvělé přechody. Doopravdy!",
+
+        "color": "barva",
+        "position": "pozice",
+        "opacity": "průhlednost",
+        "rotation": "otočení",
+
+        "removePoint": "Odstranit bod",
+
+        "colorMode": "Barevné schéma:",
+        "language": "Jazyk:",
+
+        "universal": "Univerzální kód",
+        "modern": "Funguje ve většině moderních prohlížečů",
+        "legacy": "Pro starší verze prohlížečů",
+        "copy": "Zkopírovat kód"
+
+    }
+
+}

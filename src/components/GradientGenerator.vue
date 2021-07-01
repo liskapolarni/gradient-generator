@@ -13,6 +13,7 @@
                     :gradient-style="getStyle"
                     :rotation="rotation"
                     :dark-mode="darkMode"
+                    :messages="messages"
                     @update="update"
                     @select-color="selectColor"
                     @set-color-props="setColorProps"
@@ -22,7 +23,10 @@
                     :gradient-colors="gradientColors"
                     :gradient-style="getStyle"
                     :dark-mode="darkMode"
-                    @set-dark="setDarkMode" />
+                    :language="language"
+                    :messages="messages"
+                    @set-dark="setDarkMode"
+                    @switch-language="switchLanguage" />
             </div>
         </div>
     </main>
@@ -33,6 +37,8 @@ import Properties from './Properties.vue'
 import Display from './Display.vue'
 
 export default {
+    props: ['language', 'messages'],
+    emits: ['switch-language'],
     components: {
         Properties,
         Display
@@ -151,6 +157,10 @@ export default {
         // dark mode
         setDarkMode() {
             this.darkMode = !this.darkMode
+        },
+        // language switching
+        switchLanguage(language) {
+            this.$emit('switch-language', language)
         }
     },
     watch: {

@@ -1,5 +1,6 @@
 <template>
     <div id="color-properties"
+        v-if="messages"
         :class="{ dark: darkMode }">
         <TabsSwitcher
             :selected-tab="selectedTab"
@@ -19,7 +20,7 @@
                 :dark-mode="darkMode"
                 @set-color="setColor">
                 <div class="input-box w-240 mt-20">
-                    <label for="color">Color</label>
+                    <label for="color">{{ messages.color }} (hex)</label>
                     <input type="text" class="ml-20 mt-20 pl-10" name="color"
                         @keyup="update" v-model="input.hex" />
                 </div>
@@ -27,19 +28,19 @@
 
             <div id="inputs">
                 <div class="input-box halfwidth mt-20">
-                    <label for="position">Position (0-100)</label>
+                    <label for="position">{{ messages.position }} (0-100)</label>
                     <input type="text" name="position"
                         @keyup="update" v-model="input.position" />
                 </div>
 
                 <div class="input-box halfwidth mt-20">
-                    <label for="opacity">Opacity (0-1)</label>
+                    <label for="opacity">{{ messages.opacity }} (0-1)</label>
                     <input type="text" name="opacity"
                         @keyup="update" v-model="input.opacity" />
                 </div>
 
                 <div class="input-box fullwidth mt-20">
-                    <label for="rotation">Rotation (°)</label>
+                    <label for="rotation">{{ messages.rotation }} (°)</label>
                     <input type="text" name="rotation"
                         @keyup="update" v-model="inputRotation" />
                 </div>
@@ -56,14 +57,15 @@
                             invert: gradientColors.length > 2
                         }">
                     </div>
-                    Remove point
+                    {{ messages.removePoint }}
                 </div>
             </div>
         </div>
         <div v-else-if="selectedTab == 'CSS'">
             <CodeSnippet
                 :gradient-style="gradientStyle"
-                :dark-mode="darkMode" />
+                :dark-mode="darkMode"
+                :messages="messages" />
         </div>
     </div>
 </template>
@@ -81,7 +83,7 @@ export default {
         ColorPicker,
         CodeSnippet
     },
-    props: ['gradient-colors', 'selected-color', 'gradient-style', 'rotation', 'dark-mode'],
+    props: ['gradient-colors', 'selected-color', 'gradient-style', 'rotation', 'dark-mode', 'messages'],
     data() {
         return {
             selectedTab: 'Editor',

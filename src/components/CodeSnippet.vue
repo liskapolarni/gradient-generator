@@ -18,7 +18,7 @@
                         :class="{ dark: darkMode }"
                         @click="copyText(getCode(prefix), prefix.name)"
                         :ref="prefix.name">
-                        Click to copy
+                        {{ messages.copy }}
                         <div class="btn-icon copy invert mt-3"></div>
                     </div>
                 </div>
@@ -29,25 +29,21 @@
 
 <script>
 export default {
-    props: ['gradient-style', 'dark-mode', 'dark-mode'],
+    props: ['gradient-style', 'dark-mode', 'messages'],
     data() {
         return {
             prefixes: [
                 {
-                    name: 'Universal',
-                    description: 'Works in most modern browsers',
                     prefix: '',
                     img: 'icons/web.png'
                 },
                 {
                     name: 'Firefox',
-                    description: 'Legacy, not needed in modern versions',
                     prefix: '-moz-',
                     img: 'icons/firefox.png'
                 },
                 {
                     name: 'Chrome, Safari',
-                    description: 'Legacy, not needed in modern versions',
                     prefix: '-webkit-',
                     img: 'icons/chrome.png'
                 }
@@ -73,12 +69,41 @@ export default {
                     this.$refs[copyButtonRef].innerHTML = oldValue
                 }
             }, 2000)
+        },
+        updateText() {
+            const changes = [
+                {
+                    name: this.messages.universal,
+                    description: this.messages.modern
+                },
+                {
+                    description: this.messages.legacy
+                },
+                {
+                     description: this.messages.legacy
+                }
+            ]
+
+            changes.forEach((change, index) => {
+                Object.assign(this.prefixes[index], {...change})
+            })
         }
     },
     computed: {
         gradient() {
             return this.gradientStyle({rotate: true})
         }
+    },
+    watch: {
+        messages: {
+            handler: function() {
+                this.updateText()
+            },
+            deep: true
+        }
+    },
+    mounted() {
+        this.updateText()
     }
 }
 </script>

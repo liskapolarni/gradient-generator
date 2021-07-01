@@ -8,10 +8,10 @@
         <div id="options-menu" v-if="showOptions">
             <ul>
                 <li @click="setDarkMode">
-                    Color mode: {{ colorMode }}
+                    {{ messages.colorMode }} {{ colorMode }}
                 </li>
-                <li>
-                    Language: <img :src="language" alt="flag">
+                <li @click="switchLanguage">
+                    {{ messages.language }} <img :src="flagImage" alt="flag">
                 </li>
             </ul>
         </div>
@@ -20,12 +20,11 @@
 
 <script>
 export default {
-    props: ['dark-mode'],
-    emits: ['set-dark'],
+    props: ['dark-mode', 'language', 'messages'],
+    emits: ['set-dark', 'switch-language'],
     data() {
         return {
-            showOptions: false,
-            tempLanguage: 'en'
+            showOptions: false
         }
     },
     methods: {
@@ -34,6 +33,18 @@ export default {
         },
         setDarkMode() {
             this.$emit('set-dark')
+        },
+        switchLanguage() {
+            const languages = ["en", "cz"]
+
+            let index = languages.indexOf(this.language)
+            if (index < languages.length-1) {
+                index += 1
+            } else {
+                index = 0
+            }
+
+            this.$emit('switch-language', languages[index])
         }
     },
     computed: {
@@ -45,12 +56,12 @@ export default {
                     return "☀️"
             }
         },
-        language() {
+        flagImage() {
             const countryCode = {
                 en: 'gb',
                 cz: 'cz'
             }
-            return `https://flagcdn.com/24x18/${countryCode[this.tempLanguage]}.png`
+            return `https://flagcdn.com/24x18/${countryCode[this.language]}.png`
         }
     }
 }
@@ -112,6 +123,7 @@ export default {
             cursor: pointer;
             padding: 5px 10px 5px 10px;
             border-radius: 8px;
+            width: 250px;
 
             &:hover {
                 background-color: rgba($light-100, 0.25);
