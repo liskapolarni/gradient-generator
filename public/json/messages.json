@@ -18,7 +18,8 @@
         "universal": "Universal",
         "modern": "Works in most modern browsers",
         "legacy": "Legacy, not needed in modern versions",
-        "copy": "Click to copy"
+        "copy": "Click to copy",
+        "copied": "Copied!"
 
     },
 
@@ -40,7 +41,8 @@
         "universal": "Univerzální kód",
         "modern": "Funguje ve většině moderních prohlížečů",
         "legacy": "Pro starší verze prohlížečů",
-        "copy": "Zkopírovat kód"
+        "copy": "Zkopírovat kód",
+        "copied": "Zkopírováno!"
 
     }
 

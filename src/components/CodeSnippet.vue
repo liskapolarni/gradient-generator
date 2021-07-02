@@ -63,7 +63,7 @@ export default {
             document.body.removeChild(secretTextarea)
 
             const oldValue = this.$refs[copyButtonRef].innerHTML
-            this.$refs[copyButtonRef].innerHTML = "Copied!"
+            this.$refs[copyButtonRef].innerHTML = this.messages.copied
             setTimeout(() => {
                 if (this.$refs[copyButtonRef] !== null) {
                     this.$refs[copyButtonRef].innerHTML = oldValue
