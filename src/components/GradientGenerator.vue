@@ -18,7 +18,8 @@
                     @select-color="selectColor"
                     @set-color-props="setColorProps"
                     @new-color="newColor"
-                    @remove-color="removeColor" />
+                    @remove-color="removeColor"
+                    @shuffle="shuffle" />
                 <Display
                     :gradient-colors="gradientColors"
                     :gradient-style="getStyle"
@@ -45,13 +46,12 @@ export default {
     },
     data() {
         return {
-            // gradient
-            gradientColors: [
-                { id: 0, hex: '#F9655B', position: 0, opacity: 1 },
-                { id: 1, hex: '#EE821A', position: 100, opacity: 1 }
-            ],
-            selectedColor: 0,
+            // gradient properties
+            gradientColors: [{}, {}],
             rotation: 45,
+            // gradient manipulation
+            selectedColor: 0,
+            // css style
             gradientStyle: '',
             // dark mode
             darkMode: false
@@ -161,6 +161,22 @@ export default {
         // language switching
         switchLanguage(language) {
             this.$emit('switch-language', language)
+        },
+        // shuffle colors
+        shuffle() {
+            const rotations = [...Array(8).keys()].map((multiplier) => 45*multiplier)
+            this.rotation = rotations[Math.floor(Math.random() * rotations.length)]
+
+            const hexKeys = [...Array(9).keys(), "A", "B", "C", "D", "E", "F"]
+            this.gradientColors = [...Array(2).keys()].map((id) => {
+                return {
+                    id: id,
+                    // random hex color generation
+                    hex: '#' + [...Array(6).keys()].map(() => hexKeys[Math.floor(Math.random() * hexKeys.length)]).join(""),
+                    position: id*100,
+                    opacity: 1
+                }
+            })
         }
     },
     watch: {
@@ -178,6 +194,8 @@ export default {
         if (localStorage.darkMode) {
             this.darkMode = (localStorage.darkMode === "true")
         }
+
+        this.shuffle()
     }
 }
 </script>

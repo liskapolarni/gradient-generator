@@ -59,11 +59,11 @@ $box-model: margin, padding;
         border: none !important;
 
         &:hover {
-            background-color: darken($primary, 5%);
+            background-color: darken($primary, 5%) !important;
         }
 
         &:active {
-            background-color: darken($primary, 10%);
+            background-color: darken($primary, 10%) !important;
         }
 
         cursor: pointer;
@@ -75,11 +75,11 @@ $box-model: margin, padding;
         border: none !important;
 
         &:hover {
-            background-color: darken($red, 5%);
+            background-color: darken($red, 5%) !important;
         }
 
         &:active {
-            background-color: darken($red, 10%);
+            background-color: darken($red, 10%) !important;
         }
 
         cursor: pointer;
@@ -115,7 +115,7 @@ $box-model: margin, padding;
     display: inline-block;
 }
 
-@each $icon-name in delete, showmore, close, copy {
+@each $icon-name in delete, showmore, close, copy, shuffle {
     .#{$icon-name} {
         background-image: url('../public/assets/icons/#{$icon-name}.png')
     }

@@ -14,6 +14,7 @@
         
         "colorMode": "Color mode:",
         "language": "Language:",
+        "shuffle": "Shuffle",
 
         "universal": "Universal",
         "modern": "Works in most modern browsers",
@@ -37,13 +38,13 @@
 
         "colorMode": "Barevné schéma:",
         "language": "Jazyk:",
+        "shuffle": "Náhodný přechod",
 
         "universal": "Univerzální kód",
         "modern": "Funguje ve většině moderních prohlížečů",
         "legacy": "Pro starší verze prohlížečů",
         "copy": "Zkopírovat kód",
         "copied": "Zkopírováno!"
-
     }
 
 }

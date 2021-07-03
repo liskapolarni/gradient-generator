@@ -11,12 +11,18 @@
             @click="selectTab(name)">
             {{ name }}
         </div>
+
+        <div class="btn blue right mr-5 mt-5"
+            @click="shuffle">
+            <div class="btn-icon shuffle invert"></div>
+            {{ messages.shuffle }}
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['selected-tab', 'dark-mode'],
+    props: ['selected-tab', 'dark-mode', 'messages'],
     data() {
         return {
             tabs: ['Editor', 'CSS']
@@ -25,6 +31,9 @@ export default {
     methods: {
         selectTab(name) {
             this.$emit('select-tab', name)
+        },
+        shuffle() {
+            this.$emit('shuffle')
         }
     }
 }

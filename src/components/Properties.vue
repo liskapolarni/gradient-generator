@@ -5,7 +5,9 @@
         <TabsSwitcher
             :selected-tab="selectedTab"
             :dark-mode="darkMode"
-            @select-tab="selectTab" />
+            :messages="messages"
+            @select-tab="selectTab"
+            @shuffle="shuffle" />
         <div v-if="selectedTab == 'Editor'">
             <VisualizationLine
                 :gradient-colors="gradientColors"
@@ -15,7 +17,6 @@
                 @select-color="selectColor"
                 @set-color-props="setColorProps"
                 @new-color="newColor" />
-
             <ColorPicker
                 :dark-mode="darkMode"
                 @set-color="setColor">
@@ -173,11 +174,17 @@ export default {
             if (this.gradientColors.length > 2) {
                 this.$emit('remove-color', this.colorObject)
             }
+        },
+        shuffle() {
+            this.$emit('shuffle')
         }
     },
     watch: {
         selectedColor() {
             this.input = {...this.colorObject}
+        },
+        rotation() {
+            this.inputRotation = this.rotation
         },
         gradientColors: {
             handler: function() {
