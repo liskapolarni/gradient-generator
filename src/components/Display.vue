@@ -18,7 +18,7 @@ import Options from './Options.vue'
 
 export default {
     props: ['gradient-colors', 'gradient-style', 'dark-mode', 'language', 'messages'],
-    emits: ['switch-language'],
+    emits: ['switch-language', 'set-dark'],
     components: {
         Options
     },

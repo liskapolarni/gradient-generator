@@ -32,18 +32,36 @@
                     <label for="position">{{ messages.position }} (0-100)</label>
                     <input type="text" name="position"
                         @keyup="update" v-model="input.position" />
+                    <div class="input-btns-wrapper">
+                        <div class="input-btn plus"
+                            @click="changeValue('increase', 'position', 5)"></div>
+                        <div class="input-btn minus"
+                            @click="changeValue('decrease', 'position', 5)"></div>
+                    </div>
                 </div>
 
                 <div class="input-box halfwidth mt-20">
                     <label for="opacity">{{ messages.opacity }} (0-1)</label>
                     <input type="text" name="opacity"
                         @keyup="update" v-model="input.opacity" />
+                    <div class="input-btns-wrapper">
+                        <div class="input-btn plus"
+                            @click="changeValue('increase','opacity', 0.1)"></div>
+                        <div class="input-btn minus"
+                            @click="changeValue('decrease','opacity', 0.1)"></div>
+                    </div>
                 </div>
 
                 <div class="input-box fullwidth mt-20">
                     <label for="rotation">{{ messages.rotation }} (°)</label>
                     <input type="text" name="rotation"
                         @keyup="update" v-model="inputRotation" />
+                    <div class="input-btns-wrapper">
+                        <div class="input-btn plus"
+                            @click="changeValue('increase','rotation', 45)"></div>
+                        <div class="input-btn minus"
+                            @click="changeValue('decrease','rotation', 45)"></div>
+                    </div>
                 </div>
 
                 <div class="btn relative-center mt-20"
@@ -177,6 +195,47 @@ export default {
         },
         shuffle() {
             this.$emit('shuffle')
+        },
+        // input value increase/decrease
+        changeValue(operation, valueName, step) {
+            const modifier = operation == 'increase' ? 1 : (-1)
+
+            const values = {
+                customReferences: {
+                    rotation: 'inputRotation'
+                },
+                conditions: {
+                    position: {
+                        increase: parseInt(this.input.position) < 100,
+                        decrease: parseInt(this.input.position) > 0
+                    },
+                    opacity: {
+                        increase: parseFloat(this.input.opacity) < 1,
+                        decrease: parseFloat(this.input.opacity) > 0
+                    },
+                    rotation: {
+                        increase: parseInt(this.inputRotation) < 360,
+                        decrease: parseInt(this.inputRotation) > 0
+                    }
+                }
+            }
+
+            if (values.conditions[valueName][operation]) {
+                if (values.customReferences[valueName] === undefined) {
+                    let newValue = 0
+                    if (this.input[valueName] % 1 === 0) {
+                        newValue = parseInt(this.input[valueName])+(step*modifier)
+                    } else {
+                        newValue = (parseFloat(this.input[valueName])+(step*modifier)).toFixed(1)
+                    }
+
+                    this.input[valueName] = newValue
+                } else {
+                    this[values.customReferences[valueName]] = parseInt(this[values.customReferences[valueName]])+(step*modifier)
+                }
+            }
+
+            this.update()
         }
     },
     watch: {
@@ -220,6 +279,10 @@ export default {
             background-color: $dark-100;
             color: $light-100;
         }
+
+        .input-btn {
+            filter: invert(1);
+        }
     }
 }
 
@@ -233,6 +296,7 @@ input[type=text] {
 }
 
 #inputs {
+    position: relative;
     display: inline-block;
     vertical-align: top;
     height: 250px;
@@ -248,6 +312,7 @@ input[type=text] {
 }
 
 .input-box {
+    position: relative;
     display: inline-block;
 
     input {

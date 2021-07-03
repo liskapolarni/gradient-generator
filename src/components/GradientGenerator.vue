@@ -164,8 +164,8 @@ export default {
         },
         // shuffle colors
         shuffle() {
-            const rotations = [...Array(8).keys()].map((multiplier) => 45*multiplier)
-            this.rotation = rotations[Math.floor(Math.random() * rotations.length)]
+            // sets a random rotation in range from 0 to 360 degrees
+            this.rotation = Math.floor(Math.random() * 9)*45
 
             const hexKeys = [...Array(9).keys(), "A", "B", "C", "D", "E", "F"]
             this.gradientColors = [...Array(2).keys()].map((id) => {
