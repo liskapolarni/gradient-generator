@@ -195,6 +195,7 @@ export default {
         },
         shuffle() {
             this.$emit('shuffle')
+            this.selectColor(0)
         },
         // input value increase/decrease
         changeValue(operation, valueName, step) {

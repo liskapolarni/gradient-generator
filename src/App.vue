@@ -3,7 +3,8 @@
     <GradientGenerator
       :language="language"
       :messages="messages"
-      @switch-language="switchLanguage">
+      @switch-language="switchLanguage"
+    >
       <template v-slot:title>
         <div v-if="messages">
           <h2>{{ messages.title }}</h2>
